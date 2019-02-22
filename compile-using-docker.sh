@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-docker build -f ./docker/Dockerfile-Centos -t artemis-native-builder .
+docker build -f ./docker-build/Dockerfile-centos -t artemis-native-builder .
 
 #cmake .
 #make

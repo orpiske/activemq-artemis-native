@@ -34,17 +34,20 @@ USER root
 RUN groupadd -g 1001 -r artemis && useradd -r -u 1001 -g artemis artemis \
  && yum install -y libaio && yum -y clean all
 
+RUN yum install -y bash
+RUN yum install -y cmake gcc libaio-devel make
+
 USER artemis
 
-ADD .
+ADD . /work
 
 USER root
 
 USER artemis
 
 # Expose some outstanding folders
-VOLUME ["/target"]
-WORKDIR /
+VOLUME ["/work/target"]
+WORKDIR /work
 
-ENTRYPOINT ["/docker-run.sh"]
-CMD ["run"]
+#ENTRYPOINT ["./docker-build/build.sh"]
+CMD ["RUN"]
