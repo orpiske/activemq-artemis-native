@@ -17,21 +17,19 @@
 
 # ActiveMQ Artemis
 
-FROM jboss/base-jdk:8
+FROM openjdk:8
 LABEL maintainer="Apache ActiveMQ Team"
 
 USER root
 
-RUN yum install -y glibc-devel.i686 libaio-devel.i686
-RUN groupadd -g 1001 -r artemis && useradd -r -u 1001 -g artemis artemis \
- && yum install -y libaio
+RUN apt-get update
+RUN apt-get install -y gcc-6-multilib
+RUN apt-get install -y glibc-devel.i686 libaio-devel.i686
+RUN apt-get install -qq -y libaio-devel
+RUN apt-get install -qq -y bash
+RUN apt-get install -qq -y cmake gcc gcc-c++ libaio-devel make vim
 
-RUN yum install -y bash
-RUN yum install -y cmake gcc gcc-c++ ncurses-devel libaio-devel make vim
-
-
-
-RUN yum -y clean all
+RUN groupadd -g 1001 -r artemis && useradd -r -u 1001 -g artemis artemis
 
 ADD . /work
 

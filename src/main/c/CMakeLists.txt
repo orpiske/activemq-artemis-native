@@ -63,16 +63,16 @@ message(STATUS "Using the following libaio library for linking: ${LIBAIO_LIB}")
 INCLUDE_DIRECTORIES(. ${JNI_INCLUDE_DIRS})
 
 ADD_CUSTOM_COMMAND(
-    OUTPUT org_apache_activemq_artemis_jlibaio_LibaioContext.h
+    OUTPUT org_apache_activemq_artemis_nativo_jlibaio_LibaioContext.h
     COMMAND javah -cp ../java/ org.apache.activemq.artemis.nativo.jlibaio.LibaioContext
-    DEPENDS ../java/org/apache/activemq/artemis/jlibaio/LibaioContext.java
+    DEPENDS ../java/org/apache/activemq/artemis/nativo/jlibaio/LibaioContext.java
 )
 
-ADD_LIBRARY(artemis-native SHARED org_apache_activemq_artemis_jlibaio_LibaioContext.c org_apache_activemq_artemis_jlibaio_LibaioContext.h exception_helper.h)
+ADD_LIBRARY(artemis-native SHARED org_apache_activemq_artemis_nativo_jlibaio_LibaioContext.c org_apache_activemq_artemis_nativo_jlibaio_LibaioContext.h exception_helper.h)
 
 target_link_libraries(artemis-native ${LIBAIO_LIB})
 
 set_target_properties(artemis-native PROPERTIES
-              LIBRARY_OUTPUT_DIRECTORY ../../../bin
+              LIBRARY_OUTPUT_DIRECTORY ../../../target
               LIBRARY_OUTPUT_NAME ${ARTEMIS_LIB_NAME})
 message(STATUS "Setting up library as ${ARTEMIS_LIB_NAME} based on current architecture")
