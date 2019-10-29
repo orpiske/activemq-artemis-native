@@ -32,7 +32,15 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <pthread.h>
-#include <stdatomic.h>
+
+#if defined(HAVE_STDATOMIC_H)
+ #include <stdatomic.h>
+#else
+ #define memory_order_acquire ""
+ #define memory_order_release ""
+
+ #define atomic_thread_fence(x) __asm__ __volatile__ ("":::"memory")
+#endif
 #include <limits.h>
 #include "org_apache_activemq_artemis_nativo_jlibaio_LibaioContext.h"
 #include "exception_helper.h"

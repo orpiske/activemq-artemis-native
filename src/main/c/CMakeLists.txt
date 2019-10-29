@@ -28,6 +28,12 @@ if (JNI_FOUND)
     message (STATUS "JNI_LIBRARIES=${JNI_LIBRARIES}")
 endif()
 
+include (CheckIncludeFiles)
+if (UNIX)
+	CHECK_INCLUDE_FILES(stdatomic.h HAVE_STDATOMIC_H)
+endif (UNIX)
+
+
 # You may want to adjust this next line for debugging. The -O3 is removed by default, since it would make debugging
 # harder. Nonetheless, it can still be added by passing CMAKE_USER_C_FLAGS
 # Also note that define the C99 as the minimum supported standard so the code can be compiled with older GCC versions
